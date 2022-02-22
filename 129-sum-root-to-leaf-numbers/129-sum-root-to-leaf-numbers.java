@@ -22,8 +22,10 @@ class Solution {
         if(node == null) return 0;
         
         
-        currNumber *= 10;
-        currNumber += node.val;
+        // currNumber *= 10;
+        // currNumber += node.val;
+        
+        currNumber = currNumber*10+node.val;
         
         if(node.left == null && node.right == null) return currNumber;
         
