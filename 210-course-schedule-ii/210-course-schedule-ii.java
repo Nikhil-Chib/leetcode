@@ -19,13 +19,12 @@ class Solution {
         }
 
         // run DFS and store the prev nodes visited to detect the back-edge or cycle
-        boolean[] visited = new boolean[numCourses];
-        boolean[] onPath = new boolean[numCourses];
+        int[] visited = new int[numCourses];
         
         List<Integer> ans = new ArrayList<Integer>();
 
         for(int i=0; i<numCourses; i++) {
-            if(!dfs(graph, i, visited, onPath, ans)) return new int[0];
+            if(!dfs(graph, i, visited, ans)) return new int[0];
         }
 
         int[] answer = new int[numCourses];
@@ -37,21 +36,20 @@ class Solution {
         return answer;
     }
 
-    public boolean dfs(Map<Integer, List<Integer>> graph, int curr, boolean[] visited, boolean[] onPath, List<Integer> ans) {
+    public boolean dfs(Map<Integer, List<Integer>> graph, int curr, int[] visited, List<Integer> ans) {
 
-        if(onPath[curr]) return false;
+        if(visited[curr] == 1) return false;
 
-        if(visited[curr]) return true;
+        if(visited[curr] == 2) return true;
 
-        onPath[curr] = true;
+        visited[curr] = 1;
 
         List<Integer> dependentCourses = graph.get(curr);
         for(int i=0; i<dependentCourses.size(); i++) {
-            if(!dfs(graph, dependentCourses.get(i), visited, onPath, ans)) return false;
+            if(!dfs(graph, dependentCourses.get(i), visited, ans)) return false;
         }
 
-        visited[curr] = true;
-        onPath[curr] = false;
+        visited[curr] = 2;
 
         ans.add(curr);
         return true;
