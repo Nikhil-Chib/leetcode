@@ -15,17 +15,9 @@ class Solution {
                 }
                 
                 if(i == s.length()) {
-                    int k=j;
-                    boolean isMatched = true;
-                    while(k<p.length()) {
-                        if(p.charAt(k) != '*') {
-                            isMatched = false;
-                            break;
-                        }
-                        k++;
-                    }
+                    if(p.charAt(j) == '*') matchFound[i][j] = matchFound[i][j+1];
+                    else matchFound[i][j] = false;
                     
-                    matchFound[i][j] = isMatched;
                     continue;
                 }
                 
