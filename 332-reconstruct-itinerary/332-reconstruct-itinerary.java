@@ -16,19 +16,14 @@ class Solution {
 		graph.get(from).put(to, graph.get(from).get(to)+1);
 	}
 	
-	
-
-	Stack<String> stack = new Stack<>();
 	List<String> itinerary = new ArrayList<>();
-	dfs(graph, "JFK", itinerary, stack);
+	dfs(graph, "JFK", itinerary);
 	
 	Collections.reverse(itinerary);
 	return itinerary;
 }
 
-public void dfs(Map<String, Map<String, Integer>> graph, String toTicket,  List<String> itinerary, Stack<String> stack) {
-	
-	stack.push(toTicket);
+public void dfs(Map<String, Map<String, Integer>> graph, String toTicket,  List<String> itinerary) {
     
     Map<String,Integer> dests = graph.get(toTicket);
 	
@@ -39,12 +34,12 @@ public void dfs(Map<String, Map<String, Integer>> graph, String toTicket,  List<
 		for(String nextStop: sortedKeys) {
 			if(dests.get(nextStop) > 0) {
 				dests.put(nextStop, dests.get(nextStop)-1);
-				dfs(graph, nextStop, itinerary, stack);
+				dfs(graph, nextStop, itinerary);
 			}
 			
 		}
 	}
 	
-	itinerary.add(stack.pop());
+	itinerary.add(toTicket);
 }
 }
